@@ -55,7 +55,6 @@ extern "C" {
 
 #include <malloc.h>
 #include <debug.h>
-#include <diskio/dvd.h>
 #include <diskio/ata.h>
 #include <ppc/cache.h>
 #include <ppc/timebase.h>
@@ -456,7 +455,7 @@ int main ()
 	ZLX::Hw::SystemPoll();
 
 	xenon_ata_init();
-	dvd_init();
+	xenon_atapi_init();
 
 	strcpy(cwd, MUPEN_DIR);
 	while(cwd[strlen(cwd)-1] != '/') cwd[strlen(cwd)-1] = '\0';
@@ -502,7 +501,7 @@ void getKeys(int Control, BUTTONS *Keys)
 	get_controller_data(&cdata[Control], Control);
 	c=&cdata[Control];
 
-    if (c->select){
+    if (c->back){
 		stop=1;
 		regular_quit=1;
 	}
